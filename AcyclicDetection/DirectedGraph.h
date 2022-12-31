@@ -24,4 +24,6 @@ public:
 
 private:
     bool is_cyclic_util(int current, std::vector<bool>& visitedVec, std::vector<bool>& recursionVec, std::vector<int>& recursionStack);
+    static void print_recursion_stack(std::vector<int> recursionStack);
+    static void print_visited_nodes(std::vector<bool> visitedVec);
 };

@@ -67,9 +67,9 @@ bool DirectedGraph::is_cyclic()
     for (auto i = 0; i < size; i++)
         if (!visitedVec[i] && is_cyclic_util(i, visitedVec, recursionVec, recursionStack))
         {
-            for (auto reverse_iterator = recursionStack.rbegin(); reverse_iterator != recursionStack.rend(); ++reverse_iterator)
-                std::cout << *reverse_iterator << " -> "; // BUG: Only print loop, not entire recursion stack.
-            std::cout << std::endl;
+            recursionStack.push_back(i);
+            print_visited_nodes(visitedVec);
+            print_recursion_stack(recursionStack);
             return true;
         }
     return false;
@@ -82,12 +82,38 @@ bool DirectedGraph::is_cyclic_util(int current, std::vector<bool>& visitedVec, s
     recursionVec[current] = true;
 
     for (const int nodeVal : adjacency[current])
-        if (!visitedVec[nodeVal] && is_cyclic_util(nodeVal, visitedVec, recursionVec, recursionStack) || recursionVec[
-            nodeVal])
+        if ((!visitedVec[nodeVal] && is_cyclic_util(nodeVal, visitedVec, recursionVec, recursionStack)) ||
+            recursionVec[nodeVal])
         {
             recursionStack.push_back(nodeVal);
             return true;
         }
     recursionVec[current] = false;
     return false;
+}
+
+void DirectedGraph::print_recursion_stack(std::vector<int> recursionStack)
+{
+    std::cout << std::endl << "\nPath:" << std::endl;
+    for (auto reverse_iterator = recursionStack.rbegin(); reverse_iterator != recursionStack.rend();
+         ++reverse_iterator)
+        std::cout << *reverse_iterator << (reverse_iterator != recursionStack.rend() - 1 ? " -> " : " ");
+
+    std::cout << std::endl << "\nCycle Found:" << std::endl;
+    const std::vector<int>::reverse_iterator keyItr = std::find(recursionStack.rbegin(), recursionStack.rend(),
+                                                                recursionStack[0]);
+    for (auto reverse_iterator = keyItr; reverse_iterator != recursionStack.rend();
+         ++reverse_iterator)
+        std::cout << *reverse_iterator << (reverse_iterator != recursionStack.rend() - 1 ? " -> " : " ");
+    std::cout << std::endl;
+}
+
+void DirectedGraph::print_visited_nodes(std::vector<bool> visitedVec)
+{
+    std::cout << "Visited the following nodes: ";
+    for (auto i = 0; i < visitedVec.size(); i++)
+    {
+        if (visitedVec[i]) std::cout << i << " ";
+    }
+    std::cout << std::endl;
 }

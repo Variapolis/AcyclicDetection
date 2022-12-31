@@ -5,9 +5,9 @@
 
 int main()
 {
-    std::string input;
-    std::cin >> input;
-    DirectedGraph graph = DirectedGraph(input);
+    const std::string filename = "benchmarks/cyclic/c_10240_4.txt";
+    std::cout << filename << std::endl;
+    DirectedGraph graph = DirectedGraph(filename);
     
     // std::string h;
     // graph.print();

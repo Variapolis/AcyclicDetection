@@ -8,7 +8,7 @@ int extract_graph_type(std::string filename)
 {
     size_t startPos = filename.find('_');
     size_t endPos = filename.find('.');
-    bool isAcyclic = filename[startPos-1] == 'a';
+    bool isAcyclic = filename[startPos - 1] == 'a';
     return std::stoi(filename.substr(startPos + 1, endPos - startPos - 3)) + isAcyclic;
 }
 
@@ -29,7 +29,7 @@ void run(std::string fpath)
     for (const auto& entry : std::filesystem::recursive_directory_iterator(fpath))
     {
         // File Setup.
-        if(!entry.is_regular_file()) continue;
+        if (!entry.is_regular_file()) continue;
         std::cout << "==========\tTrying to open: " << entry.path() << "\t==========" << std::endl;
         DirectedGraph directedGraph = DirectedGraph(entry.path().string());
         clock_t t = clock();
@@ -45,7 +45,7 @@ void run(std::string fpath)
         // Printing Output data per graph.
         data.print_visited_nodes();
         std::cout << "Graph Type: " << (isCyclic ? "No (Cyclic)" : "Yes (Acyclic)") << std::endl;
-        if(isCyclic) data.print_recursion_stack();
+        if (isCyclic) data.print_recursion_stack();
         std::cout << "\nElapsed time = " << elapsed << " ms" << std::endl;
         std::cout << "Finished with: " << entry.path() << "\t==========" << std::endl;
     }
@@ -56,7 +56,7 @@ void run(std::string fpath)
 
 int main()
 {
-    while(true)
+    while (true)
     {
         std::cout << "Press any key to run." << std::endl;
         std::cin.get();

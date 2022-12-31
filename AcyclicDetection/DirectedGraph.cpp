@@ -60,7 +60,8 @@ std::vector<std::vector<int>> DirectedGraph::get_adjacency_list()
     return adjacency;
 }
 
-bool DirectedGraph::is_cyclic(DebugData& data) // HACK: Data reference for output is required. Could be potentially improved by using pointer as out return instead.
+bool DirectedGraph::is_cyclic(DebugData& data)
+// HACK: Data reference for output is required. Could be potentially improved by using pointer as out return instead.
 {
     data.visitedVec = std::vector<bool>(size);
     data.recursionVec = std::vector<bool>(size);

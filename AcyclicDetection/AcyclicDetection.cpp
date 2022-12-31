@@ -44,7 +44,7 @@ void run(std::string fpath)
 
         // Printing Output data per graph.
         data.print_visited_nodes();
-        std::cout << "Graph Type: " << (isCyclic ? "Yes (Cyclic)" : "No (Acyclic)") << std::endl;
+        std::cout << "Graph Type: " << (isCyclic ? "No (Cyclic)" : "Yes (Acyclic)") << std::endl;
         if(isCyclic) data.print_recursion_stack();
         std::cout << "\nElapsed time = " << elapsed << " ms" << std::endl;
         std::cout << "Finished with: " << entry.path() << "\t==========" << std::endl;

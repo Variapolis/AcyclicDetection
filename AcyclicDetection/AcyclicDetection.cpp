@@ -14,11 +14,12 @@ int extract_graph_type(std::string filename)
 
 void print_time_map(const std::map<int, int>& time_map)
 {
+    std::cout << "Type\tSize\tTime" << std::endl;
     for (auto element : time_map)
     {
         bool isCyclic = element.first % 40;
-        std::string value = (isCyclic == 0 ? "Cyclic " : "Acyclic ") + std::to_string(element.first - isCyclic);
-        std::cout << value << ":\t" << element.second << "ms" << std::endl;
+        std::string value = isCyclic == 0 ? "Cyclic" : "Acyclic";
+        std::cout << value << "\t" << element.first - isCyclic << "\t" << element.second << "ms" << std::endl;
     }
 }
 
@@ -47,7 +48,7 @@ void run(std::string fpath)
         std::cout << "Graph Type: " << (isCyclic ? "No (Cyclic)" : "Yes (Acyclic)") << std::endl;
         if (isCyclic) data.print_recursion_stack();
         std::cout << "\nElapsed time = " << elapsed << " ms" << std::endl;
-        std::cout << "Finished with: " << entry.path() << "\t==========" << std::endl;
+        std::cout << "==========\tFinished with: " << entry.path() << "\t==========" << std::endl;
     }
     //Printing averaged data per graph size and type.
     std::cout << "\n==========\t Time Results: \t==========" << std::endl;
